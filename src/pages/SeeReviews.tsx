@@ -1,0 +1,55 @@
+import { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
+import { Requests } from "../api";
+import { TReviews, User } from "../types";
+
+const SeeReviews = () => {
+  const [averageRating, setAverageRating] = useState<number>(0);
+  const [reviews, setReviews] = useState<TReviews[]>([] as TReviews[]);
+  const [users, setUsers] = useState<User[]>([] as User[]);
+
+  useEffect(() => {
+    Requests.fetchAllDataAtEndpoint("reviews").then((data) => {
+      setAverageRating(
+        data.reduce(
+          (acc: number, curr: TReviews) => acc + Number(curr.value),
+          0
+        ) / data.length
+      );
+      setReviews(data);
+    });
+
+    Requests.fetchAllDataAtEndpoint("users").then((data) => {
+      setUsers(data);
+    });
+  });
+
+  return (
+    <div className="flex items-center justify-center flex-col mt-[20px]">
+      <Link
+        to={"/Home"}
+        className="btn btn-accent flex md:max-w-[450] mt-[10px]">
+        {"Back to Home"}
+      </Link>
+      <h1 className="lg:text-[50px] text-center md:text-[40px] text-[30px]">
+        Average Review Rating out of 10: {averageRating}
+      </h1>
+      <hr />
+      {reviews.map((review) => {
+        const foundUser = users.find((user) => user.id === review.userId);
+
+        return (
+          <div
+            className={`w-[50vw] ${
+              Number(review.value) >= 5 ? "border-accent" : "border-error"
+            } border-[5px] my-[10px] p-[20px] text-center`}>
+            <div>{`${foundUser?.username}: ${review.value}`}</div>
+            {review.comment !== "" ? <div>{`${review.comment}`}</div> : ""}
+          </div>
+        );
+      })}
+    </div>
+  );
+};
+
+export default SeeReviews;

@@ -1,0 +1,28 @@
+.styled-table {
+   border-collapse: collapse;
+   margin-top: 10px;
+ }
+ 
+ .styled-table td {
+   border: 1px solid #ddd;
+   padding: 8px;
+   text-align: center;
+ }
+ 
+ .styled-table input {
+   width: 100%;
+   padding: 8px;
+   box-sizing: border-box;
+   border: 1px solid #ddd;
+   border-radius: 4px;
+ }
+ 
+ .styled-table input[type="color"] {
+   height: 60px;
+   width: 80%;
+ }
+ 
+ .styled-table tr:nth-child(even) {
+   background-color: #f2f2f2;
+ }
+ 
