@@ -1,5 +1,4 @@
 import { useState } from "react";
-import { Link } from "react-router-dom";
 import AddMonthlyExpense from "../EditMonthlyExpensesForms/AddMonthlyExpense";
 import EditMonthlyExpense from "../EditMonthlyExpensesForms/EditMonthlyExpense";
 import { useDoughnut } from "../providers/DoughnutDataProvider";
@@ -9,11 +8,6 @@ const EditMonthlyExpenses = () => {
   const [radio, setRadio] = useState<"Add" | "Edit" | "Delete">("Add");
   return (
     <div className="md:mt-[100px] ">
-      <Link
-        to={"/Home"}
-        className="btn btn-accent flex mt-[70px] mb-[-60px] md:max-w-[450] md:mt-[10px]">
-        {"Back to Home"}
-      </Link>
       <div className="lg:w-[400px]  w-[50vw] mt-[100px]">
         <div className="flex items-center justify-around">
           <div>

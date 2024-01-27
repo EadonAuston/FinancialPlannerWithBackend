@@ -2,7 +2,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { Requests } from "../api";
 import { useState } from "react";
 import { User } from "../types";
-import { useAuth } from "../providers/authProvider";
+import { useAuth } from "../providers/AuthProvider";
 import toast from "react-hot-toast";
 
 const SignInForm = () => {
@@ -44,7 +44,6 @@ const SignInForm = () => {
                   } else {
                     setUser(result);
                     localStorage.setItem("user", JSON.stringify(result));
-                    // Requests.updateBarChart(result.id);
                     navigate("/Home");
                   }
                 });

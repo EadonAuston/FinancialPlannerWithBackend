@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { Requests } from "../api";
-import { useAuth } from "../providers/authProvider";
+import { useAuth } from "../providers/AuthProvider";
 import toast from "react-hot-toast";
 import { Link } from "react-router-dom";
 
@@ -71,32 +71,35 @@ const CheckList = () => {
 
   return (
     <div className="w-[90vw] ml-[5vw] flex flex-col lg:flex-row text-center items-center justify-center">
-      <div className="flex flex-col text-center items-center lg:mr-[20px] md:mr-[20px]">
+      <div className="flex flex-col">
         <Link
           to={"/Home"}
-          className="btn btn-accent flex md:max-w-[450] my-[10px]">
+          className="btn btn-accent flex md:max-w-[450] my-[10px] max-w-[150px]">
           {"Back to Home"}
         </Link>
-        <h1 className="text-center text-[30px] lg:text-[40px] md:text-[30px] lg:mr-[20px]">
-          Financial Wishes / Goals Checklist:
-        </h1>
-        {userCheckList.map((item) => (
-          <div
-            className="flex justify-evenly items-center w-[50vw]"
-            key={item.id}>
-            <button onClick={() => handleDelete(item.id)}>🗑️</button>
-            <div className="w-[30%] text-center">
-              {item.name}: ${item.price}
-            </div>
+        <div className="flex flex-col text-center items-center lg:mr-[20px] md:mr-[20px]">
+          <h1 className="text-center text-[30px] lg:text-[40px] md:text-[30px] lg:mr-[20px]">
+            Financial Wishes / Goals Checklist:
+          </h1>
+          {userCheckList.map((item) => (
+            <div
+              className="flex justify-evenly items-center w-[50vw] mt-[15px]"
+              key={item.id}>
+              <button onClick={() => handleDelete(item.id)}>🗑️</button>
+              <div className="w-[30%] text-center">
+                {item.name}: ${item.price}
+              </div>
 
-            <button
-              onClick={() => handleCheck(item.id)}
-              className="btn btn-accent min-h-0 h-[20px]">
-              ✓
-            </button>
-          </div>
-        ))}
+              <button
+                onClick={() => handleCheck(item.id)}
+                className="btn btn-accent min-h-0 h-[20px]">
+                ✓
+              </button>
+            </div>
+          ))}
+        </div>
       </div>
+
       <form
         action=""
         className="text-center display justify-center mt-[50px]"

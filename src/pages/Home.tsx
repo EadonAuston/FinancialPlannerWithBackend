@@ -1,7 +1,7 @@
 import { Bar } from "react-chartjs-2";
 import "chart.js/auto";
 import { Link } from "react-router-dom";
-import { useAuth } from "../providers/authProvider";
+import { useAuth } from "../providers/AuthProvider";
 import { Requests } from "../api";
 import { useEffect, useState } from "react";
 import toast from "react-hot-toast";
@@ -11,23 +11,38 @@ import { useChartData } from "../providers/ChartDataProvider";
 
 const Home = () => {
   const { logout, user } = useAuth();
-  const { chartData } = useChartData();
+  const { chartData, setChartData } = useChartData();
   const [showWelcomeModal, setShowWelcomeModal] = useState(false);
-  const [newUser, setNewUser] = useState<boolean | undefined>(false);
   const [showDetails, setShowDetails] = useState<boolean>(false);
 
   useEffect(() => {
-    if (user !== null) {
-      Requests.formatUserBarChartData(user)
-        .then((data) => {
-          if (data.labels.length < 1) {
-            setShowWelcomeModal(true);
-            setNewUser(true);
-          }
-        })
-        .catch(() => toast.error("Error Fetching Chart Data"));
-    }
-  }, [user]);
+    const boilerPlateDataForNewUser = [
+      { value: "500", label: "Wallet", color: "#FF0000" },
+      { value: "2000", label: "Bank", color: "#FF00FF" },
+      { value: "1000", label: "Savings", color: "#0000FF" },
+    ];
+
+    const testData = async () => {
+      if (user !== null) {
+        await Requests.formatUserBarChartData(user)
+          .then((data) => {
+            if (data.labels.length < 1) {
+              for (let i = 0; i < boilerPlateDataForNewUser.length; i++) {
+                const { value, label, color } = boilerPlateDataForNewUser[i];
+                Requests.createBarChart(user.id, value, label, color).then(() =>
+                  Requests.formatUserBarChartData(user).then((data) =>
+                    setChartData(data)
+                  )
+                );
+              }
+              setShowWelcomeModal(true);
+            }
+          })
+          .catch(() => toast.error("Error Fetching Chart Data"));
+      }
+    };
+    testData();
+  }, [user, setChartData]);
 
   return (
     <div className="flex items-center flex-col">
@@ -124,17 +139,11 @@ const Home = () => {
       <div className="flex flex-col items-center mx-[50px] lg:flex-row md:flex-col md:items-center sm:flex-col sm:items-center">
         <div className="lg:w-[50vw] md:w-[600px] h-[350px] mr-[30px] font-bold text-[50px] w-[70vw] text-center">
           Liquid Assets Graph:
-          {!newUser ? (
-            <div className="p-4">
-              <Bar data={chartData} />
-            </div>
-          ) : (
-            <div className="flex justify-center mt-[200px] text-[40px]">
-              Nothing to show here yet!
-            </div>
-          )}
+          <div className="p-4">
+            <Bar data={chartData} />
+          </div>
         </div>
-        <LiquidAssets setNewUser={setNewUser} />
+        <LiquidAssets />
       </div>
 
       <br />

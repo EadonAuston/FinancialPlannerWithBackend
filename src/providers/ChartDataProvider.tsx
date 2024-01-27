@@ -6,7 +6,7 @@ import {
   useState,
 } from "react";
 import { Requests } from "../api";
-import { useAuth } from "./authProvider";
+import { useAuth } from "./AuthProvider";
 import { TBarChart } from "../types";
 import toast from "react-hot-toast";
 

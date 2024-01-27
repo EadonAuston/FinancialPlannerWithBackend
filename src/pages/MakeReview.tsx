@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import { Requests } from "../api";
-import { useAuth } from "../providers/authProvider";
+import { useAuth } from "../providers/AuthProvider";
 import toast from "react-hot-toast";
 
 const MakeReview = () => {
@@ -15,7 +15,7 @@ const MakeReview = () => {
         onSubmit={(e) => {
           if (user !== null) {
             e.preventDefault();
-            if (rating !== null && rating >= 1 && rating <= 10) {
+            if (rating !== null && rating >= 1 && rating <= 5) {
               Requests.postReview(Number(rating), comment, user.id)
                 .then(() => toast.success("Review Successfully Created"))
                 .then(() => {
@@ -27,7 +27,15 @@ const MakeReview = () => {
           }
         }}
         className="flex items-center justify-center flex-col mt-[20px]">
-        <div>
+        <div className="mr-[50vw]">
+          <Link
+            to={"/Home"}
+            className="btn btn-accent flex md:max-w-[450] mt-[10px]">
+            {"Back to Home"}
+          </Link>
+        </div>
+
+        <div className="label">
           <input
             type="radio"
             name="add"
@@ -39,14 +47,11 @@ const MakeReview = () => {
             Add Review
           </label>
         </div>
-
-        <div className="label">
-          <span className="label-text">Rating out of 10:</span>
-        </div>
+        <span className="label-text">Rating out of 5:</span>
         <input
           type="number"
           min={1}
-          max={10}
+          max={5}
           placeholder="Type number here"
           value={rating === 0 || rating === null ? "" : rating}
           id="ratingValue"
@@ -58,7 +63,7 @@ const MakeReview = () => {
           }}
           onChange={(e) =>
             setRating(
-              Number(e.target.value) > 10 ? rating : Number(e.target.value)
+              Number(e.target.value) > 5 ? rating : Number(e.target.value)
             )
           }
         />
@@ -68,7 +73,7 @@ const MakeReview = () => {
         </label>
         <br />
         <textarea
-          className="textarea textarea-bordered w-[500px] h-[500px]"
+          className="textarea textarea-bordered w-[90vw] h-[500px] lg:w-[70vw]"
           onChange={(e) => {
             setComment(e.target.value);
           }}
@@ -77,11 +82,6 @@ const MakeReview = () => {
         />
         <br />
         <input className="btn btn-outline btn-accent" type="submit" />
-        <Link
-          to={"/Home"}
-          className="btn btn-accent flex md:max-w-[450] mt-[10px]">
-          {"Back to Home"}
-        </Link>
       </form>
     </>
   );

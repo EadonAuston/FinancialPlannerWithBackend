@@ -3,7 +3,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { Requests } from "../api";
 import { User } from "../types";
 import toast from "react-hot-toast";
-import { useAuth } from "../providers/authProvider";
+import { useAuth } from "../providers/AuthProvider";
 
 const SignUpForm = () => {
   const { register } = useAuth();
@@ -19,7 +19,7 @@ const SignUpForm = () => {
         toast.error("This username is already taken");
       } else {
         register({ username, password });
-        navigate("/SignIn");
+        navigate("/Home");
       }
     });
   };

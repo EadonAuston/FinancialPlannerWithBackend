@@ -4,6 +4,7 @@ import { useDoughnut } from "../providers/DoughnutDataProvider";
 import EditMonthlyExpenses from "./EditMonthlyExpenses";
 import Modal from "react-modal";
 import { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 
 const MonthlyExpenses = () => {
   const { userData } = useDoughnut();
@@ -29,17 +30,25 @@ const MonthlyExpenses = () => {
 
   return (
     <div className="w-[90vw] ml-[5vw]">
-      <div className="flex flex-col items-center mx-[50px] lg:flex-row md:flex-col md:items-center sm:flex-col sm:items-center">
-        <div className="lg:w-[45vw] lg:h-[45vw] md:w-[70vw] md:h-[70vw] md:text-[40px] h-[500px] lg:mr-[30px] font-bold text-[30px] w-[70vw] text-center">
-          Monthly Expenses Graph:
-          {!newUser ? (
-            <Doughnut data={userData} />
-          ) : (
-            <div className="flex justify-center mt-[200px] text-[40px]">
-              Nothing to show here yet!
-            </div>
-          )}
+      <div className="flex flex-col items-start mx-[50px] lg:flex-row md:flex-col md:items-start sm:flex-col sm:items-center">
+        <div className="flex flex-col">
+          <Link
+            to={"/Home"}
+            className="btn btn-accent flex mt-[70px] mb-[-60px] md:max-w-[450] md:mt-[10px] max-w-[150px]">
+            {"Back to Home"}
+          </Link>
+          <div className="lg:w-[40vw] lg:h-[40vw] md:w-[70vw] md:h-[70vw] md:text-[40px] h-[500px] lg:mr-[30px] mt-[80px] font-bold text-[30px] w-[70vw] text-center">
+            Monthly Expenses Graph:
+            {!newUser ? (
+              <Doughnut data={userData} />
+            ) : (
+              <div className="flex justify-center mt-[200px] text-[40px]">
+                Nothing to show here yet!
+              </div>
+            )}
+          </div>
         </div>
+
         <EditMonthlyExpenses />
       </div>
       <Modal
