@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { Requests } from "../api";
-import { useAuth } from "../providers/authProvider";
+import { useAuth } from "../providers/AuthProvider";
 import { useDoughnut } from "../providers/DoughnutDataProvider";
 import toast from "react-hot-toast";
 

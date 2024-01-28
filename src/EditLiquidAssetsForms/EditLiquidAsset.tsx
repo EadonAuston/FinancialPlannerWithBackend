@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { useAuth } from "../providers/authProvider";
+import { useAuth } from "../providers/AuthProvider";
 import { Requests } from "../api";
 import toast from "react-hot-toast";
 import { useChartData } from "../providers/ChartDataProvider";

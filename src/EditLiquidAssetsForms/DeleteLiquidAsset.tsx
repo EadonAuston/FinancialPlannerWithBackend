@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { Requests } from "../api";
-import { useAuth } from "../providers/authProvider";
+import { useAuth } from "../providers/AuthProvider";
 import toast from "react-hot-toast";
 import { useChartData } from "../providers/ChartDataProvider";
 

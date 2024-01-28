@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { Requests } from "../api";
-import { useAuth } from "../providers/authProvider";
+import { useAuth } from "../providers/AuthProvider";
 import { useChartData } from "../providers/ChartDataProvider";
 import toast from "react-hot-toast";
 

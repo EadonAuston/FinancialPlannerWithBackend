@@ -14,7 +14,7 @@ import { ChartDataProvider } from "./providers/ChartDataProvider.tsx";
 import MonthlyExpenses from "./pages/MonthlyExpenses.tsx";
 import { DoughnutProvider } from "./providers/DoughnutDataProvider.tsx";
 import CheckList from "./pages/CheckList.tsx";
-import { AuthProvider } from "./providers/authProvider.tsx";
+import { AuthProvider } from "./providers/AuthProvider.tsx";
 
 const router = createBrowserRouter([
   { path: "/", element: <Landing /> },
