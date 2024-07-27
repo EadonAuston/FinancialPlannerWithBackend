@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { Requests } from "../api";
+// import { Requests } from "../api";
+import { Requests } from "../expressRequests";
 import { User } from "../types";
 import toast from "react-hot-toast";
 import { useAuth } from "../providers/AuthProvider";
@@ -12,17 +13,22 @@ const SignUpForm = () => {
   const [cpassword, setCPassword] = useState<string>("");
   const navigate = useNavigate();
 
+  // const checkIfUsernameIsTaken = () => {
+  //   Requests.fetchAllDataAtEndpoint("users").then((data) => {
+  //     const result = data.find((user: User) => user.username === username);
+  //     if (result !== undefined) {
+  //       toast.error("This username is already taken");
+  //     } else {
+  //       register({ username, password });
+  //       navigate("/Home");
+  //     }
+  //   });
+  // };
   const checkIfUsernameIsTaken = () => {
-    Requests.fetchAllDataAtEndpoint("users").then((data) => {
-      const result = data.find((user: User) => user.username === username);
-      if (result !== undefined) {
-        toast.error("This username is already taken");
-      } else {
-        register({ username, password });
-        navigate("/Home");
-      }
-    });
+    Requests.createUser(username, password);
+    navigate("/Home");
   };
+
   return (
     <div>
       <div className="hero min-h-screen bg-base-200">
